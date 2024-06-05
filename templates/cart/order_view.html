@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% extends 'base3.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    /* Custom CSS for button color and image size */
+    .btn-custom {
+        background-color: #e9ccdc;
+        border-color: #f3c2e9;
+        color: #333;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .img-custom {
+        height: 200px;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown-box {
+        width: 100%;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #fbc6e8;
+        border-color: #f5c3f3;
+        color: #353236;
+    }
+
+    .img-custom:hover {
+        transform: scale(1.05);
+    }
+
+    .order-details-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .order-details-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .order-card {
+        margin-bottom: 20px;
+    }
+
+    .order-card .card-body {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fafafa;
+    }
+
+    .order-card .card-body p {
+        margin-bottom: 10px;
+    }
+
+    .order-status, .order-price {
+        font-weight: bold;
+        color: green;
+    }
+
+    .delivery-status {
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<div class="container order-details-container">
+    <h1 class="order-details-header">Your Order Details</h1>
+    <div class="row">
+        {% for order in orders %}
+        <div class="col-md-6 order-card">
+            <div class="card mb-4">
+                <button class="btn btn-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails{{ order.id }}" aria-expanded="false" aria-controls="collapseDetails{{ order.id }}">
+                    <img src="{{ order.medicine.image.url }}" class="card-img-top img-custom" alt="Package Image">
+                    <div class="card-body">
+                        <p><strong>Total:</strong><span class="order-price"> ₹{{ order.total_price }}</span></p>
+                        <p><strong>Name:</strong> {{ order.medicine.medicine_name }}</p>
+                        <p><strong>Address:</strong> {{ order.address }}</p>
+                        <p><strong>Phone:</strong> {{ order.phone }}</p>
+                        <p><strong>Order Status:</strong> <span class="order-status">{{ order.order_status }}</span></p>
+                        <p><strong>Delivery Status:</strong> <span class="delivery-status">{{ order.delivary_status }}</span></p>
+                    
+                    </div>
+                </button>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
